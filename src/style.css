@@ -5,7 +5,7 @@
     list-style: none;
 }
 
-header, nav, .projects-area, .steps-area {
+header, nav, .projects-area, .steps-area, footer {
     border: 1px solid black;
 }
 
@@ -19,19 +19,21 @@ main {
     width: 100vw;
 }
 
-nav {
-    height: 90vh;
+nav, .projects-area, .steps-area {
+    height: 85vh;
+}
+
+nav, .steps-area {
     width: 20vw;
 }
 
 .projects-area {
-    height: 90vh;
     width: 60vw;
 }
 
-.steps-area {
-    height: 90vh;
-    width: 20vw;
+footer {
+    height: 5vh;
+    width: 100vw;
 }
 
 
