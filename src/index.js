@@ -6,7 +6,7 @@ const header = document.querySelector('header');
 const logoImg = new Image();
 logoImg.src = logo;
 header.insertBefore(logoImg, header.firstChild);
-header.firstChild.style.width = '100px';
+logoImg.style.width = '85px';
 
 const footer = document.querySelector('footer');
 const gitHubImg = new Image();

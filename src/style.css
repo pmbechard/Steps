@@ -27,7 +27,7 @@ header {
 }
 
 h1 {
-    color: #0eb738;
+    color: #dedede;
     background-color: #2e2e2e;
     font-weight: 900;
     font-family: "RockSalt";
@@ -61,12 +61,12 @@ nav, .steps-area {
 }
 
 nav li, .steps-area li, .projects-area li {
-    background-color: #555;
+    background-color: #444;
     margin-bottom: 5px;
     padding: 10px 15px;
     border: 1px solid #2e2e2e;
     border-radius: 20px;
-    box-shadow: 1px 1px 2px #222;
+    box-shadow: 0px 1px 2px #222;
 }
 
 li {
@@ -74,16 +74,50 @@ li {
 }
 
 li:hover {
-
-    background-color: #666;
+    background-color: #555;
     cursor: pointer;
     transform: scale(1.01);
+}
+
+li:active {
+    background-color: #444;
+    cursor: pointer;
+    transform: scale(1.005);
 }
 
 .projects-area {
     width: 48vw;
     background-color: #2e2e2e;
     padding: 20px;
+}
+
+.projects-area div, .steps-area div {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;    
+}
+
+.projects-area button, .steps-area button {
+    border: none;
+    margin: 0 0 auto 0;
+    background: rgb(48, 93, 255);
+    height: 40px;
+    width: 40px;
+    font-size: 24px;
+    border-radius: 50%;
+    transition: all 0.05s ease-in-out;
+}
+
+.projects-area button:hover, .steps-area button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    transform: scale(1.05);
+}
+
+.projects-area button:active, .steps-area button:active {
+    cursor: pointer;
+    opacity: 0.9;
+    transform: scale(1);
 }
 
 footer {
