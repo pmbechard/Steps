@@ -120,6 +120,10 @@ li:active {
     transform: scale(1);
 }
 
+li.selected {
+    background-color: rgb(48, 93, 255);
+}
+
 footer {
     height: 5vh;
     width: 100vw;
