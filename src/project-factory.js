@@ -7,7 +7,6 @@ function initializeInput() {
 
     const projectsList = document.getElementById('projects-list');
     const projectInput = document.createElement('li');
-    console.log(projectsList)
     projectsList.insertBefore(projectInput, projectsList.lastElementChild);
     projectInput.classList.add('project-input');
 
