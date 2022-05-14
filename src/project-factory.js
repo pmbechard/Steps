@@ -1,3 +1,5 @@
+import { compareAsc, format, isToday } from 'date-fns';
+
 function initializeInput() {
     const addProjectButton = document.getElementById('add-project');
     addProjectButton.setAttribute('disabled', 'true');
@@ -32,13 +34,30 @@ function initializeInput() {
     cancelButton.innerHTML = '&#x2717;';
     cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
 
+
+
     saveButton.addEventListener('click', () => {
-        console.log('saving...');
-        // validate input
-        // create project object
-        addProjectButton.classList.remove('disabled');
-        addProjectButton.removeAttribute('disabled');
-        projectInput.remove();
+        let today = new Date();
+        let date = new Date(`${today.getFullYear()}-${parseInt(today.getMonth())+1}-${today.getDate()}`);
+        let inputDate = new Date(`${dueDateInput.value}`);
+        if (nameInput.value === '') {
+            nameInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            nameInput.addEventListener('click', () => nameInput.style.backgroundColor = 'white');
+        } else if (dueDateInput.value === '') {
+            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
+         } else if (date >inputDate) {
+            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
+         } else {
+             // CREATE PROJECT OBJECT
+            addProjectButton.classList.remove('disabled');
+            addProjectButton.removeAttribute('disabled');
+            projectInput.remove();
+        }
+
+
+
     });
     cancelButton.addEventListener('click', () => {
         addProjectButton.classList.remove('disabled');
