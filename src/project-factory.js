@@ -1,4 +1,8 @@
 function initializeInput() {
+    const addProjectButton = document.getElementById('add-project');
+    addProjectButton.setAttribute('disabled', 'true');
+    addProjectButton.classList.add('disabled');
+
     const projectsList = document.getElementById('projects-list');
     const projectInput = document.createElement('li');
     projectsList.insertBefore(projectInput, projectsList.firstChild);
@@ -29,13 +33,18 @@ function initializeInput() {
     cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
 
     saveButton.addEventListener('click', () => {
-        console.log('saved!');
+        console.log('saving...');
         // validate input
         // create project object
+        addProjectButton.classList.remove('disabled');
+        addProjectButton.removeAttribute('disabled');
+        projectInput.remove();
     });
-    cancelButton.addEventListener('click', () => projectInput.remove());
-
-    // disable Add Project Button
+    cancelButton.addEventListener('click', () => {
+        addProjectButton.classList.remove('disabled');
+        addProjectButton.removeAttribute('disabled');
+        projectInput.remove();
+    });
 }
 
 // On 'Save' create new object instance

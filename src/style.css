@@ -120,6 +120,16 @@ li:active {
     transform: scale(1);
 }
 
+button.disabled {
+    opacity: 0.2;
+}
+
+button.disabled:hover {
+    cursor: auto;
+    opacity: 0.2;
+    transform: none;
+}
+
 li.selected {
     background-color: rgb(48, 93, 255);
 }
