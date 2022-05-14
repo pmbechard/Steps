@@ -29,6 +29,8 @@ function initializeInput() {
 
     nameInput.setAttribute('type', 'text');
     nameInput.setAttribute('placeholder', 'Project name');
+    nameInput.setAttribute('minlength', '1');
+    nameInput.setAttribute('maxlength', '20');
     dueDateInput.setAttribute('type', 'date');
     saveButton.innerHTML = '&#x2714;';
     saveButton.style.backgroundColor = 'rgb(17, 173, 0)';
@@ -69,8 +71,6 @@ function initializeInput() {
     });
 }
 
-// On 'Save' create new object instance
-
 class Project {
     static nextAvailableID = 0;
     static allProjects = []
@@ -88,18 +88,47 @@ class Project {
         const newProject = document.createElement('li');
         projectsList.insertBefore(newProject, projectsList.lastElementChild);
         newProject.id = this.id;
-        newProject.textContent = this.name;
-        // Add date info and delete option
+        const nameElement = document.createElement('h4');
+        nameElement.classList.add('project-name');
+        nameElement.textContent = this.name;
+        const dateElement = document.createElement('p');
+        dateElement.classList.add = 'project-date';
+        dateElement.textContent = this.dueDate;
+        const newProjectInfo = document.createElement('div');
+        newProjectInfo.appendChild(nameElement);
+        newProjectInfo.appendChild(dateElement);
+        newProject.appendChild(newProjectInfo);
+
+        const editButton = document.createElement('button');
+        editButton.innerHTML = '&#9998;';
+        editButton.style.background = 'none';
+        const deleteButton = document.createElement('button');
+        deleteButton.innerHTML = 'DEL';
+        deleteButton.style.fontSize = '8px';
+        deleteButton.style.background = 'none';
+
+        const newProjectButtons = document.createElement('div');
+        newProjectButtons.appendChild(editButton);
+        newProjectButtons.appendChild(deleteButton);
+        newProject.appendChild(newProjectButtons);
+
+        newProject.style.display = 'flex';
+        newProject.style.justifyContent = 'space-between';
+        newProject.style.alignItems = 'center';
+
+        // TODO: Add functionality to edit and delete buttons
+        // TODO: Change edit and delete icons
     }
 
     deleteElement() {
+        // Untested
         const projectsList = document.querySelectorAll('projects-list li');
         projectsList.forEach( (project) => {
             if (project.id === this.id) {
                 project.remove();
             }
         });
-
+        Projects.allProjects.filter( (project) => project !== this);
     }
 
     get name() { return this._name }

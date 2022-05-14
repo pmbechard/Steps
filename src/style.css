@@ -91,7 +91,7 @@ li:active {
     padding: 20px;
 }
 
-.projects-area div, .steps-area div {
+.projects-area div.add, .steps-area div.add {
     display: flex;
     width: 100%;
     justify-content: flex-end;    
