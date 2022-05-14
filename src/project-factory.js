@@ -1,9 +1,8 @@
 function initializeInput() {
     const projectsList = document.getElementById('projects-list');
     const projectInput = document.createElement('li');
-    projectsList.insertBefore(projectInput, projectsList.firstChild)
-
-    // Name date save cancel
+    projectsList.insertBefore(projectInput, projectsList.firstChild);
+    projectInput.classList.add('project-input');
 
     const inputsDiv = document.createElement('div');
     inputsDiv.id = 'inputs-div';
@@ -29,9 +28,14 @@ function initializeInput() {
     cancelButton.innerHTML = '&#x2717;';
     cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
 
+    saveButton.addEventListener('click', () => {
+        console.log('saved!');
+        // validate input
+        // create project object
+    });
+    cancelButton.addEventListener('click', () => projectInput.remove());
 
-    projectInput.classList.add('project-input');
-
+    // disable Add Project Button
 }
 
 // On 'Save' create new object instance

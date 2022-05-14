@@ -9,7 +9,7 @@ initializePage();
 const timeRangeOptions = document.querySelectorAll('#times-list li');
 timeRangeOptions.forEach( (timeRange) => {
     timeRange.addEventListener('click', () => {
-        updateTimeRange(timeRange.textContent);
+        updateTimeRange(timeRange);
     });
 });
 
