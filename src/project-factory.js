@@ -1,11 +1,14 @@
 function initializeInput() {
+    // TODO: break this monstrous function up
+
     const addProjectButton = document.getElementById('add-project');
     addProjectButton.setAttribute('disabled', 'true');
     addProjectButton.classList.add('disabled');
 
     const projectsList = document.getElementById('projects-list');
     const projectInput = document.createElement('li');
-    projectsList.insertBefore(projectInput, projectsList.firstChild);
+    console.log(projectsList)
+    projectsList.insertBefore(projectInput, projectsList.lastElementChild);
     projectInput.classList.add('project-input');
 
     const inputsDiv = document.createElement('div');
@@ -48,7 +51,9 @@ function initializeInput() {
             dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
          } else {
-             // CREATE PROJECT OBJECT
+            // CREATE PROJECT OBJECT
+            const project = new Project(nameInput.value, dueDateInput.value);
+
             addProjectButton.classList.remove('disabled');
             addProjectButton.removeAttribute('disabled');
             projectInput.remove();
@@ -66,23 +71,23 @@ function initializeInput() {
 
 // On 'Save' create new object instance
 
-class projectFactory {
+class Project {
     static nextAvailableID = 0;
     static allProjects = []
 
     constructor(name, dueDate) {
         this.name = name;
         this.dueDate = dueDate;
-        this.id = nextAvailableID++;
-        allProjects.push(this);
-        createElement();
+        this.id = Project.nextAvailableID++;
+        Project.allProjects.push(this);
+        this.createElement();
     }
 
     createElement() {
         const projectsList = document.getElementById('projects-list');
         const newProject = document.createElement('li');
-        projectsList.appendChild('li');
-        projectsList.id = this.id;
+        projectsList.insertBefore(newProject, projectsList.lastElementChild);
+        newProject.id = this.id;
         newProject.textContent = this.name;
         // Add date info and delete option
     }
