@@ -124,6 +124,37 @@ li.selected {
     background-color: rgb(48, 93, 255);
 }
 
+.project-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-input:hover {
+    transform: none;
+    background-color: none;
+    opacity: none;
+    cursor: auto;
+}
+
+.project-input input {
+    border-radius: 12px;
+    height: 30px;
+    border: none;
+    outline: none;
+    padding: 0 5px;
+}
+
+.project-input button {
+    height: 25px;
+    width: 25px;
+    font-size: 18px;
+}
+
+#inputs-div, #buttons-div {
+    display: flex;
+    gap: 10px;
+}
+
 footer {
     height: 5vh;
     width: 100vw;
