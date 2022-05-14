@@ -1,5 +1,3 @@
-import { compareAsc, format, isToday } from 'date-fns';
-
 function initializeInput() {
     const addProjectButton = document.getElementById('add-project');
     addProjectButton.setAttribute('disabled', 'true');
