@@ -1,42 +1,9 @@
 function initializeInput() {
     // TODO: break this monstrous function up
-
     const addProjectButton = document.getElementById('add-project');
-    addProjectButton.setAttribute('disabled', 'true');
-    addProjectButton.classList.add('disabled');
-
-    const projectsList = document.getElementById('projects-list');
-    const projectInput = document.createElement('li');
-    projectsList.insertBefore(projectInput, projectsList.lastElementChild);
-    projectInput.classList.add('project-input');
-
-    const inputsDiv = document.createElement('div');
-    inputsDiv.id = 'inputs-div';
-    const nameInput = document.createElement('input');
-    const dueDateInput = document.createElement('input');
-    const buttonsDiv = document.createElement('div');
-    buttonsDiv.id = 'buttons-div';
-    const saveButton = document.createElement('button');
-    const cancelButton = document.createElement('button');
-
-    projectInput.appendChild(inputsDiv);
-    inputsDiv.appendChild(nameInput);
-    inputsDiv.appendChild(dueDateInput);
-    projectInput.appendChild(buttonsDiv);
-    buttonsDiv.appendChild(saveButton);
-    buttonsDiv.appendChild(cancelButton);
-
-    nameInput.setAttribute('type', 'text');
-    nameInput.setAttribute('placeholder', 'Project name');
-    nameInput.setAttribute('minlength', '1');
-    nameInput.setAttribute('maxlength', '20');
-    dueDateInput.setAttribute('type', 'date');
-    saveButton.innerHTML = '&#x2714;';
-    saveButton.style.backgroundColor = 'rgb(17, 173, 0)';
-    cancelButton.innerHTML = '&#x2717;';
-    cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
-
-
+    let nameInput, dueDateInput, saveButton, cancelButton;
+    [nameInput, dueDateInput, saveButton, cancelButton] = getInput();
+    const projectInput = document.getElementById('projects-list').lastElementChild.previousElementSibling;
 
     saveButton.addEventListener('click', () => {
         let today = new Date();
@@ -54,20 +21,62 @@ function initializeInput() {
          } else {
             // CREATE PROJECT OBJECT
             const project = new Project(nameInput.value, dueDateInput.value);
-
             addProjectButton.classList.remove('disabled');
             addProjectButton.removeAttribute('disabled');
             projectInput.remove();
         }
-
-
-
     });
     cancelButton.addEventListener('click', () => {
         addProjectButton.classList.remove('disabled');
         addProjectButton.removeAttribute('disabled');
         projectInput.remove();
     });
+}
+
+function getInput(name='', date='') {
+    // Disables add project button
+    const addProjectButton = document.getElementById('add-project');
+    addProjectButton.setAttribute('disabled', 'true');
+    addProjectButton.classList.add('disabled');
+
+    // Adds new list item for input
+    const projectsList = document.getElementById('projects-list');
+    const projectInput = document.createElement('li');
+    projectsList.insertBefore(projectInput, projectsList.lastElementChild);
+    projectInput.classList.add('project-input');
+
+    // Lays out input elements and buttons
+    const inputsDiv = document.createElement('div');
+    inputsDiv.id = 'inputs-div';
+    const nameInput = document.createElement('input');
+    nameInput.textContent = name;
+    const dueDateInput = document.createElement('input');
+    dueDateInput.textContent = date;
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.id = 'buttons-div';
+    const saveButton = document.createElement('button');
+    const cancelButton = document.createElement('button');
+
+    // Adds elements to DOM
+    projectInput.appendChild(inputsDiv);
+    inputsDiv.appendChild(nameInput);
+    inputsDiv.appendChild(dueDateInput);
+    projectInput.appendChild(buttonsDiv);
+    buttonsDiv.appendChild(saveButton);
+    buttonsDiv.appendChild(cancelButton);
+
+    // Sets styles and attributes of new elements
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('placeholder', 'Project name');
+    nameInput.setAttribute('minlength', '1');
+    nameInput.setAttribute('maxlength', '20');
+    dueDateInput.setAttribute('type', 'date');
+    saveButton.innerHTML = '&#x2714;';
+    saveButton.style.backgroundColor = 'rgb(17, 173, 0)';
+    cancelButton.innerHTML = '&#x2717;';
+    cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
+
+    return [nameInput, dueDateInput, saveButton, cancelButton];
 }
 
 class Project {
