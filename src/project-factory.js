@@ -1,39 +1,16 @@
 function initializeInput() {
-    // TODO: break this monstrous function up
-    const addProjectButton = document.getElementById('add-project');
     let nameInput, dueDateInput, saveButton, cancelButton;
-    [nameInput, dueDateInput, saveButton, cancelButton] = getInput();
-    const projectInput = document.getElementById('projects-list').lastElementChild.previousElementSibling;
-
-    saveButton.addEventListener('click', () => {
-        let today = new Date();
-        let date = new Date(`${today.getFullYear()}-${parseInt(today.getMonth())+1}-${today.getDate()}`);
-        let inputDate = new Date(`${dueDateInput.value}`);
-        if (nameInput.value === '') {
-            nameInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
-            nameInput.addEventListener('click', () => nameInput.style.backgroundColor = 'white');
-        } else if (dueDateInput.value === '') {
-            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
-            dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
-         } else if (date >inputDate) {
-            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
-            dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
-         } else {
-            // CREATE PROJECT OBJECT
-            const project = new Project(nameInput.value, dueDateInput.value);
-            addProjectButton.classList.remove('disabled');
-            addProjectButton.removeAttribute('disabled');
-            projectInput.remove();
-        }
-    });
-    cancelButton.addEventListener('click', () => {
-        addProjectButton.classList.remove('disabled');
-        addProjectButton.removeAttribute('disabled');
-        projectInput.remove();
-    });
+    getInput();
 }
 
-function getInput(name='', date='') {
+function editInput(idOfLI) {
+    const li = document.getElementById(idOfLI);
+    const name = li.firstChild.firstChild.textContent;
+    const date = li.firstChild.lastChild.textContent;
+    getInput(name, date, idOfLI);
+}
+
+function getInput(name='', date='', idOfLI='') {
     // Disables add project button
     const addProjectButton = document.getElementById('add-project');
     addProjectButton.setAttribute('disabled', 'true');
@@ -41,17 +18,23 @@ function getInput(name='', date='') {
 
     // Adds new list item for input
     const projectsList = document.getElementById('projects-list');
-    const projectInput = document.createElement('li');
-    projectsList.insertBefore(projectInput, projectsList.lastElementChild);
-    projectInput.classList.add('project-input');
+    let projectInput;
+    if (idOfLI === '') {
+        projectInput = document.createElement('li');
+        projectsList.insertBefore(projectInput, projectsList.lastElementChild);
+        projectInput.classList.add('project-input');
+    } else {
+        projectInput = document.getElementById(`${idOfLI}`);
+        projectInput.innerHTML = '';
+    }
 
     // Lays out input elements and buttons
     const inputsDiv = document.createElement('div');
     inputsDiv.id = 'inputs-div';
     const nameInput = document.createElement('input');
-    nameInput.textContent = name;
+    nameInput.value = name;
     const dueDateInput = document.createElement('input');
-    dueDateInput.textContent = date;
+    dueDateInput.value = date;
     const buttonsDiv = document.createElement('div');
     buttonsDiv.id = 'buttons-div';
     const saveButton = document.createElement('button');
@@ -76,7 +59,48 @@ function getInput(name='', date='') {
     cancelButton.innerHTML = '&#x2717;';
     cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
 
-    return [nameInput, dueDateInput, saveButton, cancelButton];
+    validateInput(projectInput, nameInput, dueDateInput, saveButton, cancelButton, idOfLI);
+}
+
+function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancelButton, idOfLI='') {
+    const addProjectButton = document.getElementById('add-project');
+
+    saveButton.addEventListener('click', () => {
+        let today = new Date();
+        let date = new Date(`${today.getFullYear()}-${parseInt(today.getMonth())+1}-${today.getDate()}`);
+        let inputDate = new Date(`${dueDateInput.value}`);
+        if (nameInput.value === '') {
+            nameInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            nameInput.addEventListener('click', () => nameInput.style.backgroundColor = 'white');
+        } else if (dueDateInput.value === '') {
+            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
+         } else if (date >inputDate) {
+            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
+         } else {
+            if (idOfLI === '') {
+                const project = new Project(nameInput.value, dueDateInput.value);
+            } else {
+                Project.allProjects.forEach( (item) => {
+                    if (item.id == idOfLI) {
+                        item.name = nameInput.value;
+                        item.dueDate = dueDateInput.value;
+                        projectInput.innerHTML = '';
+                        item.createElement();
+                    }
+                });
+            }
+            addProjectButton.classList.remove('disabled');
+            addProjectButton.removeAttribute('disabled');
+            projectInput.remove();
+        }
+    });
+    cancelButton.addEventListener('click', () => {
+        addProjectButton.classList.remove('disabled');
+        addProjectButton.removeAttribute('disabled');
+        projectInput.remove();
+    });
 }
 
 class Project {
@@ -110,6 +134,7 @@ class Project {
         const editButton = document.createElement('button');
         editButton.innerHTML = '&#9998;';
         editButton.style.background = 'none';
+        editButton.addEventListener('click', () => editInput(editButton.parentElement.parentElement.id));
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'DEL';
         deleteButton.style.fontSize = '8px';
