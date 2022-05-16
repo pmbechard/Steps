@@ -147,6 +147,8 @@ li.selected {
 }
 
 .project-input input {
+    color: #222;
+    font-weight: bold;
     border-radius: 12px;
     height: 30px;
     border: none;

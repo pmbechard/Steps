@@ -10,6 +10,7 @@ function editInput(idOfLI) {
     const li = document.getElementById(idOfLI);
     const name = li.firstChild.firstChild.textContent;
     const date = li.firstChild.lastChild.textContent;
+    li.classList.add('project-input');
     getInput(name, date, idOfLI);
 }
 
@@ -73,13 +74,12 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
         let date = new Date(`${today.getFullYear()}-${parseInt(today.getMonth())+1}-${today.getDate()}`);
         let inputDate = new Date(`${dueDateInput.value}`);
         if (nameInput.value === '') {
-            nameInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            nameInput.style.backgroundColor = 'rgba(163, 100, 100)';
             nameInput.addEventListener('click', () => nameInput.style.backgroundColor = 'white');
         } else if (dueDateInput.value === '') {
-            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
+            dueDateInput.style.backgroundColor = 'rgba(163, 100, 100)';
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
          } else if (date >inputDate) {
-            dueDateInput.style.backgroundColor = 'rgba(169, 0, 0, 0.5)';
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
          } else {
             if (idOfLI === '') {
@@ -102,7 +102,17 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
     cancelButton.addEventListener('click', () => {
         addProjectButton.classList.remove('disabled');
         addProjectButton.removeAttribute('disabled');
-        projectInput.remove();
+        if (!projectInput.id) {
+            projectInput.remove();
+        } else {
+            console.log('dont delete')
+            Project.allProjects.forEach( (item) => {
+                if (item.id == idOfLI) {
+                    item.createElement();
+                }
+            });
+            projectInput.remove();
+        }
     });
 }
 
@@ -163,7 +173,6 @@ class Project {
     }
 
     deleteElement() {
-        // Untested
         const projectsList = document.querySelectorAll('#projects-list li');
         projectsList.forEach( (project) => {
             if (project.id == this.id) {
