@@ -139,6 +139,7 @@ class Project {
         deleteButton.innerHTML = 'DEL';
         deleteButton.style.fontSize = '8px';
         deleteButton.style.background = 'none';
+        deleteButton.addEventListener('click', () => this.deleteElement());
 
         const newProjectButtons = document.createElement('div');
         newProjectButtons.appendChild(editButton);
@@ -149,19 +150,20 @@ class Project {
         newProject.style.justifyContent = 'space-between';
         newProject.style.alignItems = 'center';
 
-        // TODO: Add functionality to edit and delete buttons
+        // TODO: Add functionality to delete button
         // TODO: Change edit and delete icons
+        // TODO: Fix style of editing li
     }
 
     deleteElement() {
         // Untested
-        const projectsList = document.querySelectorAll('projects-list li');
+        const projectsList = document.querySelectorAll('#projects-list li');
         projectsList.forEach( (project) => {
-            if (project.id === this.id) {
+            if (project.id == this.id) {
                 project.remove();
             }
         });
-        Projects.allProjects.filter( (project) => project !== this);
+        Project.allProjects.filter( (project) => project !== this);
     }
 
     get name() { return this._name }
