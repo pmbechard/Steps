@@ -1,3 +1,6 @@
+import editIcon from './img/edit.png'
+import deleteIcon from './img/delete.png'
+
 function initializeInput() {
     let nameInput, dueDateInput, saveButton, cancelButton;
     getInput();
@@ -132,12 +135,18 @@ class Project {
         newProject.appendChild(newProjectInfo);
 
         const editButton = document.createElement('button');
-        editButton.innerHTML = '&#9998;';
+        const editImg = new Image();
+        editImg.src = editIcon;
+        editButton.appendChild(editImg);
+        editImg.style.height = '20px';
         editButton.style.background = 'none';
         editButton.addEventListener('click', () => editInput(editButton.parentElement.parentElement.id));
+        
         const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = 'DEL';
-        deleteButton.style.fontSize = '8px';
+        const deleteImg = new Image();
+        deleteImg.src = deleteIcon;
+        deleteButton.appendChild(deleteImg);
+        deleteImg.style.height = '20px';
         deleteButton.style.background = 'none';
         deleteButton.addEventListener('click', () => this.deleteElement());
 
@@ -150,8 +159,6 @@ class Project {
         newProject.style.justifyContent = 'space-between';
         newProject.style.alignItems = 'center';
 
-        // TODO: Add functionality to delete button
-        // TODO: Change edit and delete icons
         // TODO: Fix style of editing li
     }
 
