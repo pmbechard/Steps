@@ -1,5 +1,6 @@
 import editIcon from './img/edit.png'
 import deleteIcon from './img/delete.png'
+import { updateTimeRange } from './time-range';
 
 function initializeInput() {
     let nameInput, dueDateInput, saveButton, cancelButton;
@@ -97,6 +98,7 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
             addProjectButton.classList.remove('disabled');
             addProjectButton.removeAttribute('disabled');
             projectInput.remove();
+            updateTimeRange();
         }
     });
     cancelButton.addEventListener('click', () => {

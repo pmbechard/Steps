@@ -1,4 +1,4 @@
-function updateTimeRange(timeRange) {
+function updateTimeRange(timeRange=document.getElementById('time-all')) {
     const timeRangeOptions = document.querySelectorAll('#times-list li');
     timeRangeOptions.forEach( (option) => option.classList.remove('selected') );
     timeRange.classList.add('selected');
