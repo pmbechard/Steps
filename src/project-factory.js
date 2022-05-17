@@ -79,7 +79,7 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
         } else if (dueDateInput.value === '') {
             dueDateInput.style.backgroundColor = 'rgba(163, 100, 100)';
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
-         } else if (date >inputDate) {
+         } else if (date > inputDate) {
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
          } else {
             if (idOfLI === '') {
@@ -105,7 +105,6 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
         if (!projectInput.id) {
             projectInput.remove();
         } else {
-            console.log('dont delete')
             Project.allProjects.forEach( (item) => {
                 if (item.id == idOfLI) {
                     item.createElement();
