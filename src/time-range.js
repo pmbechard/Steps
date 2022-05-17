@@ -10,24 +10,63 @@ function updateTimeRange(timeRange) {
     switch (timeRange.id) {
         case "time-today":
             projectsList.forEach( (project) => {
-                let projectDate = new Date(project.querySelector('p').textContent);
-                projectDate.setHours(0, 0, 0, 0);
-                if (projectDate.getTime() !== today.getTime()) {
-                    project.style.visibility = 'hidden';
+                if (!project.classList.contains('project-input')) {
+                    let projectDate = new Date(project.querySelector('p').textContent);
+                    projectDate.setHours(0, 0, 0, 0);
+                    if (projectDate.getTime() !== today.getTime()) {
+                        project.style.visibility = 'hidden';
+                    } else {
+                        project.style.visibility = 'visible';
+                    }
                 }
             });
             break;
         case "time-week":
-            console.log('show week');
+            projectsList.forEach( (project) => {
+                if (!project.classList.contains('project-input')) {
+                    let projectDate = new Date(project.querySelector('p').textContent);
+                    projectDate.setHours(0, 0, 0, 0);
+                    let oneWeekFromToday = new Date(`${date.getFullYear()}-${parseInt(date.getMonth())+1}-${date.getDate()+7}`)
+                    if (projectDate.getTime() >= today.getTime() && projectDate.getTime() <= oneWeekFromToday.getTime()) {
+                        project.style.visibility = 'visible';
+                    } else {
+                    project.style.visibility = 'hidden';
+                    }
+                }
+            });
             break;
         case "time-month":
-            console.log('show month');
+            projectsList.forEach( (project) => {
+                if (!project.classList.contains('project-input')) {
+                    let projectDate = new Date(project.querySelector('p').textContent);
+                    projectDate.setHours(0, 0, 0, 0);
+                    if (projectDate.getFullYear() === today.getFullYear() && projectDate.getMonth() === today.getMonth()) {
+                        project.style.visibility = 'visible';
+                    } else {
+                        project.style.visibility = 'hidden';
+                    }
+                }
+            });
             break;
         case "time-year":
-            console.log('show year');
+            projectsList.forEach( (project) => {
+                if (!project.classList.contains('project-input')) {
+                    let projectDate = new Date(project.querySelector('p').textContent);
+                    projectDate.setHours(0, 0, 0, 0);
+                    if (projectDate.getFullYear() === today.getFullYear()) {
+                        project.style.visibility = 'visible';
+                    } else {
+                        project.style.visibility = 'hidden';
+                    }
+                }
+            });
             break;
         case "time-all":
-            projectsList.forEach( (project) => project.style.visibility = 'visible' );
+            projectsList.forEach( (project) => {
+                if (!project.classList.contains('project-input')) {
+                    project.style.visibility = 'visible'
+                }
+            });
             break;
     }
 
