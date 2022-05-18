@@ -69,12 +69,6 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
             });
             break;
     }
-
-
-
-
-    
-    // TODO: update Projects display based on selected time range
 }
 
 export { updateTimeRange };

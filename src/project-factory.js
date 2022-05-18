@@ -81,6 +81,7 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
             dueDateInput.style.backgroundColor = 'rgba(163, 100, 100)';
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
          } else if (date > inputDate) {
+            dueDateInput.style.backgroundColor = 'rgba(163, 100, 100)';
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
          } else {
             if (idOfLI === '') {
