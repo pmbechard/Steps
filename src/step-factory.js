@@ -1,3 +1,6 @@
+import completeIcon from "./img/complete.png";
+import editIcon from './img/edit.png'
+import deleteIcon from './img/delete.png'
 import { Project } from "./project-factory";
 
 const projectSteps = {};
@@ -61,15 +64,39 @@ function saveInput(liNode, taskName) {
     }
 
     liNode.firstElementChild.firstElementChild.remove();
+    liNode.style.cursor = 'auto';
 
     const task = document.createElement('p');
     task.textContent = `${projectSteps[Project.selected].length}. ${taskName}`;
     liNode.firstElementChild.appendChild(task);
+
+    const buttonsDiv = liNode.lastElementChild;
+    buttonsDiv.innerHTML = '';
+    
+    const completeButton = new Image();
+    completeButton.src = completeIcon;
+    buttonsDiv.appendChild(completeButton);
+    completeButton.style.height = '20px';
+    completeButton.style.background = 'none';
+    completeButton.classList.add('img-button');
+    const editButton = new Image();
+    editButton.src = editIcon;
+    buttonsDiv.appendChild(editButton);
+    editButton.style.height = '20px';
+    editButton.style.background = 'none';
+    editButton.classList.add('img-button');
+    const deleteButton = new Image();
+    deleteButton.src = deleteIcon;
+    buttonsDiv.appendChild(deleteButton);
+    deleteButton.style.height = '20px';
+    deleteButton.style.background = 'none';
+    deleteButton.classList.add('img-button');
+
     const addStepButton = document.getElementById('add-step');
     addStepButton.classList.remove('disabled');
     addStepButton.removeAttribute('disabled');
 
-    // fix buttons - change save/cancel to complete/edit/delete
+    // add functionality to buttons
 
     displaySteps();
 }

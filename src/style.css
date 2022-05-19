@@ -114,17 +114,21 @@ li:active {
     transform: scale(1.05);
 }
 
-.projects-area button:active, .steps-area button:active {
+.projects-area button:active, 
+.steps-area button:active,
+.img-button {
     cursor: pointer;
     opacity: 0.9;
     transform: scale(1);
 }
 
-button.disabled {
+button.disabled,
+.img-button:disabled {
     opacity: 0.2;
 }
 
-button.disabled:hover {
+button.disabled:hover,
+.img-button:hover {
     cursor: auto;
     opacity: 0.2;
     transform: none;
