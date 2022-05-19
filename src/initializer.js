@@ -18,11 +18,21 @@ function initializePage() {
     const projectsList = document.getElementById('projects-list');
     projectsList.addEventListener('click', () => {
         const projects = document.querySelectorAll('#projects-list li');
+        const steps = document.querySelectorAll('#steps-list li');
         const startPrompt = document.getElementById('start-prompt');
+        const stepPrompt = document.getElementById('step-prompt');
         const addProjectButton = document.getElementById('add-project');
+        const addStepButton = document.getElementById('add-step');
         if (Array.from(projects).length > 0) {
             startPrompt.style.visibility = 'hidden';
             addProjectButton.classList.remove('pulse');
+            if (Array.from(steps).length === 0) {
+                stepPrompt.style.visibility = 'visible';
+                addStepButton.classList.add('pulse');
+            } else {
+                stepPrompt.style.visibility = 'hidden';
+                addStepButton.classList.remove('pulse');  
+            }
         } else {
             startPrompt.style.visibility = 'visible';
             addProjectButton.classList.add('pulse');

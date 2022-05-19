@@ -15,6 +15,7 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
                     projectDate.setHours(0, 0, 0, 0);
                     if (projectDate.getTime() !== today.getTime()) {
                         project.style.visibility = 'hidden';
+                        project.style.position = 'absolute';
                     } else {
                         project.style.visibility = 'visible';
                     }
@@ -29,8 +30,10 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
                     let oneWeekFromToday = new Date(`${date.getFullYear()}-${parseInt(date.getMonth())+1}-${date.getDate()+7}`)
                     if (projectDate.getTime() >= today.getTime() && projectDate.getTime() <= oneWeekFromToday.getTime()) {
                         project.style.visibility = 'visible';
+                        project.style.position = 'relative';
                     } else {
                     project.style.visibility = 'hidden';
+                    project.style.position = 'absolute';
                     }
                 }
             });
@@ -42,8 +45,10 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
                     projectDate.setHours(0, 0, 0, 0);
                     if (projectDate.getFullYear() === today.getFullYear() && projectDate.getMonth() === today.getMonth()) {
                         project.style.visibility = 'visible';
+                        project.style.position = 'relative';
                     } else {
                         project.style.visibility = 'hidden';
+                        project.style.position = 'absolute';
                     }
                 }
             });
@@ -55,8 +60,10 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
                     projectDate.setHours(0, 0, 0, 0);
                     if (projectDate.getFullYear() === today.getFullYear()) {
                         project.style.visibility = 'visible';
+                        project.style.position = 'relative';
                     } else {
                         project.style.visibility = 'hidden';
+                        project.style.position = 'absolute';
                     }
                 }
             });
@@ -65,6 +72,7 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
             projectsList.forEach( (project) => {
                 if (!project.classList.contains('project-input')) {
                     project.style.visibility = 'visible'
+                    project.style.position = 'relative';
                 }
             });
             break;

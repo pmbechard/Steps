@@ -193,6 +193,8 @@ class Project {
         const addStepButton = document.getElementById('add-step');
         addStepButton.classList.add('disabled');
         addStepButton.setAttribute('disabled', 'true');
+        const stepPrompt = document.getElementById('step-prompt');
+        stepPrompt.style.visibility = 'hidden';
         displaySteps();
     }
 

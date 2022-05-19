@@ -3,13 +3,21 @@ import editIcon from './img/edit.png'
 import deleteIcon from './img/delete.png'
 import { Project } from "./project-factory";
 
-const projectSteps = {};
+/*
+TODO:
+    - add functionality to edit button
+    - make step displays dynamic/specific to project
+*/
 
+
+
+const projectSteps = {};
 
 function addStep() {
     if (!Project.selected) {
         return;
     }
+
     const stepList = document.getElementById('steps-list');
     const newStep = document.createElement('li');
     newStep.classList.add('step-input');
@@ -41,6 +49,9 @@ function addStep() {
     const addStepButton = document.getElementById('add-step');
     addStepButton.classList.add('disabled');
     addStepButton.setAttribute('disabled', 'true');
+    addStepButton.classList.remove('pulse');
+    const stepPrompt = document.getElementById('step-prompt');
+    stepPrompt.style.visibility = 'hidden';
 
     saveButton.addEventListener('click', () => {
         if (inputField.value === '') {
@@ -91,15 +102,35 @@ function saveInput(liNode, taskName) {
     deleteButton.style.height = '20px';
     deleteButton.style.background = 'none';
     deleteButton.classList.add('img-button');
+    
+    completeButton.addEventListener('click', () => {
+        if (liNode.style.backgroundColor === 'rgba(174, 243, 174, 0.7)') {
+            task.style.textDecoration = 'none';
+            liNode.style.backgroundColor = '#444';
+        } else {
+            task.style.textDecoration = 'line-through';
+            liNode.style.backgroundColor = 'rgba(174, 243, 174, 0.7)';
+        }
+    });
+
+    editButton.addEventListener('click', () => editInput(liNode));
+
+    deleteButton.addEventListener('click', () => {
+        liNode.remove();
+        // TODO: rearrange numbers
+        projectSteps[Project.selected] = projectSteps[Project.selected].filter( (item) => item !== liNode);
+    });
 
     const addStepButton = document.getElementById('add-step');
     addStepButton.classList.remove('disabled');
     addStepButton.removeAttribute('disabled');
 
-    // add functionality to buttons
-
     displaySteps();
 }
+
+function editInput(liNode) {
+    // TODO
+};
 
 function displaySteps() {
     // check if selected item is in project list
