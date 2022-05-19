@@ -100,6 +100,7 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
             addProjectButton.removeAttribute('disabled');
             projectInput.remove();
             updateTimeRange();
+            // select project
         }
     });
     cancelButton.addEventListener('click', () => {
@@ -118,16 +119,20 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
     });
 }
 
+
+
 class Project {
     static nextAvailableID = 0;
-    static allProjects = []
+    static allProjects = [];
 
     constructor(name, dueDate) {
         this.name = name;
         this.dueDate = dueDate;
+        let element;
         this.id = Project.nextAvailableID++;
         Project.allProjects.push(this);
         this.createElement();
+        this.selectProject();
     }
 
     createElement() {
@@ -171,7 +176,10 @@ class Project {
         newProject.style.justifyContent = 'space-between';
         newProject.style.alignItems = 'center';
 
-        // TODO: Fix style of editing li
+        this.element = newProject;
+        this.selectProject();
+
+        newProject.addEventListener('click', () => this.selectProject());
     }
 
     deleteElement() {
@@ -182,6 +190,13 @@ class Project {
             }
         });
         Project.allProjects.filter( (project) => project !== this);
+    }
+
+    selectProject() {
+        Project.allProjects.forEach( (project) => {
+            project.element.style.backgroundColor = '#444';
+        });
+        this.element.style.backgroundColor = 'rgb(48, 93, 255)';
     }
 
     get name() { return this._name }

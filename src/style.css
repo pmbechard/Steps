@@ -130,7 +130,7 @@ button.disabled:hover {
     transform: none;
 }
 
-li.selected {
+.selected {
     background-color: rgb(48, 93, 255);
 }
 
