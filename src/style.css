@@ -186,8 +186,9 @@ button.disabled:hover {
     }
     50% {
         transform: scale(1.1);
-    }
+        background-color: rgb(86, 122, 255);
 
+    }
     100% {
         transform: scale(1);
     }

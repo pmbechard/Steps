@@ -1,6 +1,7 @@
 import editIcon from './img/edit.png'
 import deleteIcon from './img/delete.png'
 import { updateTimeRange } from './time-range';
+import { displaySteps } from './step-factory';
 
 function initializeInput() {
     let nameInput, dueDateInput, saveButton, cancelButton;
@@ -100,7 +101,6 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
             addProjectButton.removeAttribute('disabled');
             projectInput.remove();
             updateTimeRange();
-            // select project
         }
     });
     cancelButton.addEventListener('click', () => {
@@ -120,10 +120,10 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
 }
 
 
-
 class Project {
     static nextAvailableID = 0;
     static allProjects = [];
+    static selected;
 
     constructor(name, dueDate) {
         this.name = name;
@@ -132,7 +132,6 @@ class Project {
         this.id = Project.nextAvailableID++;
         Project.allProjects.push(this);
         this.createElement();
-        this.selectProject();
     }
 
     createElement() {
@@ -189,15 +188,24 @@ class Project {
                 project.remove();
             }
         });
-        Project.allProjects.filter( (project) => project !== this);
+        Project.allProjects = Project.allProjects.filter( (project) => project !== this);
+        Project.selected = undefined;
+        displaySteps();
     }
 
     selectProject() {
         Project.allProjects.forEach( (project) => {
-            project.element.style.backgroundColor = '#444';
+            if (project === this) {
+                this.element.style.backgroundColor = 'rgb(48, 93, 255)';
+                Project.selected = this;
+                displaySteps();
+            } else {
+                project.element.style.backgroundColor = '#444';
+            }
         });
-        this.element.style.backgroundColor = 'rgb(48, 93, 255)';
     }
+
+    static getSelectProject() { return Project.selected };
 
     get name() { return this._name }
     set name(newName) { this._name = newName }
@@ -206,4 +214,4 @@ class Project {
     set dueDate(newDate) {this._dueDate = newDate }
 }
 
-export { initializeInput };
+export { initializeInput, Project };
