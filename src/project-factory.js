@@ -190,6 +190,9 @@ class Project {
         });
         Project.allProjects = Project.allProjects.filter( (project) => project !== this);
         Project.selected = undefined;
+        const addStepButton = document.getElementById('add-step');
+        addStepButton.classList.add('disabled');
+        addStepButton.setAttribute('disabled', 'true');
         displaySteps();
     }
 
@@ -202,6 +205,9 @@ class Project {
             } else {
                 project.element.style.backgroundColor = '#444';
             }
+            const addStepButton = document.getElementById('add-step');
+            addStepButton.classList.remove('disabled');
+            addStepButton.removeAttribute('disabled');
         });
     }
 

@@ -5,7 +5,6 @@ import gitHubLogo from './img/github.png';
 /*
 TODO:
     Disable steps until project is created/selected
-    Auto select project when created
 */
 
 

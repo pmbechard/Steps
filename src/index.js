@@ -1,6 +1,6 @@
 import { initializePage } from "./initializer";
 import { updateTimeRange } from "./time-range";
-import { initializeInput } from "./project-factory";
+import { initializeInput, Project } from "./project-factory";
 import { addStep } from "./step-factory";
 
 // Initialize static and dynamic page elements
@@ -19,3 +19,5 @@ addProjectButton.addEventListener('click', () => initializeInput());
 // Logic for adding new step
 const addStepButton = document.getElementById('add-step');
 addStepButton.addEventListener('click', () => addStep())
+addStepButton.classList.add('disabled');
+addStepButton.setAttribute('disabled', true);

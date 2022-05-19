@@ -1,11 +1,12 @@
 import { Project } from "./project-factory";
 
+const projectSteps = {};
+
+
 function addStep() {
-    // if/which project is selected
     if (!Project.selected) {
         return;
     }
-    // create li for step
     const stepList = document.getElementById('steps-list');
     const newStep = document.createElement('li');
     newStep.classList.add('step-input');
@@ -34,20 +35,25 @@ function addStep() {
     cancelButton.innerHTML = '&#x2717;';
     cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
 
-    
-    // validate
-    // associate info with project
+    const addStepButton = document.getElementById('add-step');
+    addStepButton.classList.add('disabled');
+    addStepButton.setAttribute('disabled', 'true');
+
+    saveButton.addEventListener('click', () => {
+        if (inputField.value === '') {
+            inputField.style.backgroundColor = 'rgba(163, 100, 100)';
+            inputField.addEventListener('click', () => inputField.style.backgroundColor = 'white');
+        } else {
+            saveInput(inputField.value);
+        }
+    });
+
+    cancelButton.addEventListener('click', () => {
+        newStep.remove();
+    });
 }
 
-function getStepInput() {
-    // add new li to ol with #, input box, save and delete
-}
-
-function validateInput() {
-    // check input from user
-}
-
-function saveInput() {
+function saveInput(taskName) {
     // turn input li into step
     // add step to project object
 }
