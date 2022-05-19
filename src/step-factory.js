@@ -44,7 +44,7 @@ function addStep() {
             inputField.style.backgroundColor = 'rgba(163, 100, 100)';
             inputField.addEventListener('click', () => inputField.style.backgroundColor = 'white');
         } else {
-            saveInput(inputField.value);
+            saveInput(newStep, inputField.value);
         }
     });
 
@@ -53,9 +53,25 @@ function addStep() {
     });
 }
 
-function saveInput(taskName) {
-    // turn input li into step
-    // add step to project object
+function saveInput(liNode, taskName) {
+    if (projectSteps[Project.selected]) {
+        projectSteps[Project.selected].push(liNode);
+    } else {
+        projectSteps[Project.selected] = [liNode]; 
+    }
+
+    liNode.firstElementChild.firstElementChild.remove();
+
+    const task = document.createElement('p');
+    task.textContent = `${projectSteps[Project.selected].length}. ${taskName}`;
+    liNode.firstElementChild.appendChild(task);
+    const addStepButton = document.getElementById('add-step');
+    addStepButton.classList.remove('disabled');
+    addStepButton.removeAttribute('disabled');
+
+    // fix buttons - change save/cancel to complete/edit/delete
+
+    displaySteps();
 }
 
 function displaySteps() {
@@ -64,6 +80,7 @@ function displaySteps() {
     // else display associated steps
     console.log('displaying steps');
     console.log(Project.getSelectProject());
+    console.log(projectSteps)
 }
 
 export { addStep, displaySteps };
