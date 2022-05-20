@@ -6,7 +6,8 @@ import { Project } from "./project-factory";
 /*
 TODO:
     - add functionality to edit button
-    - make step displays dynamic/specific to project
+    - fix bug where steps still displayed when project deselected by changing time range
+    - change project bgc or add a check or something when all steps completed in a project
 */
 
 
@@ -68,17 +69,17 @@ function addStep() {
 }
 
 function saveInput(liNode, taskName) {
-    if (projectSteps[Project.selected]) {
-        projectSteps[Project.selected].push(liNode);
+    if (projectSteps[Project.selected.id]) {
+        projectSteps[Project.selected.id].push(liNode);
     } else {
-        projectSteps[Project.selected] = [liNode]; 
+        projectSteps[Project.selected.id] = [liNode]; 
     }
 
     liNode.firstElementChild.firstElementChild.remove();
     liNode.style.cursor = 'auto';
 
     const task = document.createElement('p');
-    task.textContent = `${projectSteps[Project.selected].length}. ${taskName}`;
+    task.textContent = `${projectSteps[Project.selected.id].length}. ${taskName}`;
     liNode.firstElementChild.appendChild(task);
 
     const buttonsDiv = liNode.lastElementChild;
@@ -118,7 +119,7 @@ function saveInput(liNode, taskName) {
     deleteButton.addEventListener('click', () => {
         liNode.remove();
         // TODO: rearrange numbers
-        projectSteps[Project.selected] = projectSteps[Project.selected].filter( (item) => item !== liNode);
+        projectSteps[Project.selected.id] = projectSteps[Project.selected.id].filter( (item) => item !== liNode);
     });
 
     const addStepButton = document.getElementById('add-step');
@@ -133,12 +134,15 @@ function editInput(liNode) {
 };
 
 function displaySteps() {
-    // check if selected item is in project list
-    // if not -> blank steps
-    // else display associated steps
-    console.log('displaying steps');
-    console.log(Project.getSelectProject());
-    console.log(projectSteps)
+    const stepList = document.getElementById('steps-list');
+    const steps = document.querySelectorAll('#steps-list li');
+    steps.forEach( (step) => step.remove() );
+    if (projectSteps[Project.selected.id]) {
+        projectSteps[Project.selected.id].forEach( (project) => {
+            stepList.insertBefore(project, stepList.lastElementChild);
+        });
+    }
+
 }
 
 export { addStep, displaySteps };
