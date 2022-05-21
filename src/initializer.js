@@ -2,11 +2,6 @@ import './style.css';
 import logo from './img/steps_logo.png';
 import gitHubLogo from './img/github.png';
 
-/*
-TODO:
-    Disable steps until project is created/selected
-*/
-
 
 function initializePage() {
     const header = document.querySelector('header');

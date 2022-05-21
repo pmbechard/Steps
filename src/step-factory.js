@@ -116,8 +116,8 @@ function saveInput(liNode, taskName) {
 
     deleteButton.addEventListener('click', () => {
         liNode.remove();
-        // TODO: rearrange numbers
         projectSteps[Project.selected.id] = projectSteps[Project.selected.id].filter( (item) => item !== liNode);
+        displaySteps();
     });
 
     const addStepButton = document.getElementById('add-step');
@@ -136,8 +136,10 @@ function displaySteps() {
     const steps = document.querySelectorAll('#steps-list li');
     steps.forEach( (step) => step.remove() );
     if (Project.selected && projectSteps[Project.selected.id]) {
+        let counter = 1;
         projectSteps[Project.selected.id].forEach( (project) => {
             stepList.insertBefore(project, stepList.lastElementChild);
+            project.firstElementChild.textContent = `${counter++}. ` + project.firstElementChild.textContent.split(' ')[1];
         });
     }
 
