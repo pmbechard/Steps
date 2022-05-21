@@ -1,5 +1,5 @@
 import { Project } from "./project-factory";
-import { displaySteps } from "./step-factory";
+import { addStep, displaySteps } from "./step-factory";
 
 function updateTimeRange(timeRange=document.getElementById('time-all')) {
     const timeRangeOptions = document.querySelectorAll('#times-list li');
@@ -84,6 +84,18 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
     Project.selected = undefined;
     const projects = document.querySelectorAll('#projects-list li');
     projects.forEach( (project) => project.style.backgroundColor = '#444' );
+    const addStepButton = document.getElementById('add-step');
+    addStepButton.classList.add('disabled');
+    const stepPrompt = document.getElementById('step-prompt');
+    stepPrompt.style.visibility = 'hidden';
+    const startPrompt = document.getElementById('start-prompt');
+    startPrompt.style.visibility = 'visible';
+    projectsList.forEach( (project) => {
+        if (project.style.visibility !== 'hidden') {
+            startPrompt.style.visibility = 'hidden';
+
+        }
+    });
     displaySteps();
 }
 
