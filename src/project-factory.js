@@ -85,8 +85,9 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
             dueDateInput.style.backgroundColor = 'rgba(163, 100, 100)';
             dueDateInput.addEventListener('click', () => dueDateInput.style.backgroundColor = 'white');
          } else {
+             let project;
             if (idOfLI === '') {
-                const project = new Project(nameInput.value, dueDateInput.value);
+                project = new Project(nameInput.value, dueDateInput.value);
             } else {
                 Project.allProjects.forEach( (item) => {
                     if (item.id == idOfLI) {
@@ -101,6 +102,7 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
             addProjectButton.removeAttribute('disabled');
             projectInput.remove();
             updateTimeRange();
+            project.selectProject();
         }
     });
     cancelButton.addEventListener('click', () => {

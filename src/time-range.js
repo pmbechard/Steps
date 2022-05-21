@@ -1,3 +1,6 @@
+import { Project } from "./project-factory";
+import { displaySteps } from "./step-factory";
+
 function updateTimeRange(timeRange=document.getElementById('time-all')) {
     const timeRangeOptions = document.querySelectorAll('#times-list li');
     timeRangeOptions.forEach( (option) => option.classList.remove('selected') );
@@ -18,6 +21,7 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
                         project.style.position = 'absolute';
                     } else {
                         project.style.visibility = 'visible';
+                        project.style.position = 'relative';
                     }
                 }
             });
@@ -77,6 +81,10 @@ function updateTimeRange(timeRange=document.getElementById('time-all')) {
             });
             break;
     }
+    Project.selected = undefined;
+    const projects = document.querySelectorAll('#projects-list li');
+    projects.forEach( (project) => project.style.backgroundColor = '#444' );
+    displaySteps();
 }
 
 export { updateTimeRange };

@@ -6,10 +6,8 @@ import { Project } from "./project-factory";
 /*
 TODO:
     - add functionality to edit button
-    - fix bug where steps still displayed when project deselected by changing time range
     - change project bgc or add a check or something when all steps completed in a project
 */
-
 
 
 const projectSteps = {};
@@ -137,7 +135,7 @@ function displaySteps() {
     const stepList = document.getElementById('steps-list');
     const steps = document.querySelectorAll('#steps-list li');
     steps.forEach( (step) => step.remove() );
-    if (projectSteps[Project.selected.id]) {
+    if (Project.selected && projectSteps[Project.selected.id]) {
         projectSteps[Project.selected.id].forEach( (project) => {
             stepList.insertBefore(project, stepList.lastElementChild);
         });
