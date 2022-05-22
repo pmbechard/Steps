@@ -3,6 +3,13 @@ import { updateTimeRange } from "./time-range";
 import { initializeInput, Project } from "./project-factory";
 import { addStep } from "./step-factory";
 
+/*
+TODO:
+    - change project bgc when all steps completed in a project
+    - change project bcg when project overdue
+    - add ability to save information using localstorage
+*/
+
 // Initialize static and dynamic page elements
 initializePage();
 
@@ -21,3 +28,7 @@ const addStepButton = document.getElementById('add-step');
 addStepButton.addEventListener('click', () => addStep())
 addStepButton.classList.add('disabled');
 addStepButton.setAttribute('disabled', true);
+
+// TODO: Retrieve data using localstorage
+
+// TODO: Check for overdue projects

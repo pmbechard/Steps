@@ -3,12 +3,6 @@ import editIcon from './img/edit.png'
 import deleteIcon from './img/delete.png'
 import { Project } from "./project-factory";
 
-/*
-TODO:
-    - add functionality to edit button
-    - change project bgc or add a check or something when all steps completed in a project
-*/
-
 
 const projectSteps = {};
 
@@ -113,6 +107,8 @@ function saveInput(liNode, taskName) {
             task.style.textDecoration = 'line-through';
             liNode.style.backgroundColor = 'rgba(174, 243, 174, 0.7)';
         }
+        // TODO: Initiate Project completion check
+        checkComplete();
     });
 
     editButton.addEventListener('click', () => editInput(liNode));
@@ -130,10 +126,17 @@ function saveInput(liNode, taskName) {
     displaySteps();
 }
 
+function checkComplete() {
+    const steps = document.querySelectorAll('#steps-list li');
+    if (Array.from(steps).length > 0 && Array.from(steps).every( (step) => step.style.backgroundColor === 'rgba(174, 243, 174, 0.7)')) {
+        // Project.selected.style.backgroundColor = 'rgba(174, 243, 174, 0.7)';
+        // FIXME: project bgc not changing when all steps complete
+        console.log(Project.selected.element)
+    }
+}
+
 function editInput(liNode) {
-    // TODO: Fix incrementing on edit
     const currentName = liNode.firstElementChild.textContent.split(' ')[1];
-    // const currentButtonsDiv = liNode.lastElementChild;
     liNode.firstElementChild.remove();
     liNode.lastElementChild.remove();
     const newInput = document.createElement('input');
@@ -161,7 +164,6 @@ function editInput(liNode) {
     cancelButton.innerHTML = '&#x2717;';
     cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
 
-    // TODO: CONTINUE ON EDITING STEPS
     saveButton.addEventListener('click', () => {
         if (newInput.value === '') {
             newInput.style.backgroundColor = 'rgba(163, 100, 100)';
@@ -186,7 +188,7 @@ function displaySteps() {
             project.firstElementChild.textContent = `${counter++}. ` + project.firstElementChild.textContent.split(' ')[1];
         });
     }
-
+    checkComplete();
 }
 
 export { addStep, displaySteps };
