@@ -72,8 +72,11 @@ function saveInput(liNode, taskName) {
     } else {
         projectSteps[Project.selected.id] = [liNode]; 
     }
-
-    liNode.firstElementChild.firstElementChild.remove();
+    if (liNode.firstElementChild.firstElementChild) {
+        liNode.firstElementChild.firstElementChild.remove();
+    } else {
+        liNode.firstElementChild.remove();
+    }
     liNode.style.cursor = 'auto';
 
     const task = document.createElement('p');
@@ -128,7 +131,48 @@ function saveInput(liNode, taskName) {
 }
 
 function editInput(liNode) {
-    // TODO
+    // TODO: Fix incrementing on edit
+    const currentName = liNode.firstElementChild.textContent.split(' ')[1];
+    // const currentButtonsDiv = liNode.lastElementChild;
+    liNode.firstElementChild.remove();
+    liNode.lastElementChild.remove();
+    const newInput = document.createElement('input');
+
+
+    const inputsDiv = document.createElement('div');
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.id = 'buttons-div';       
+    const saveButton = document.createElement('button');
+    const cancelButton = document.createElement('button');
+
+    liNode.appendChild(inputsDiv);
+    inputsDiv.appendChild(newInput);
+    newInput.value = currentName;
+    liNode.appendChild(buttonsDiv);
+    buttonsDiv.appendChild(saveButton);
+    buttonsDiv.appendChild(cancelButton);
+
+    newInput.setAttribute('type', 'text');
+    newInput.setAttribute('placeholder', 'Task name');
+    newInput.setAttribute('minlength', '1');
+    newInput.setAttribute('maxlength', '20');
+    saveButton.innerHTML = '&#x2714;';
+    saveButton.style.backgroundColor = 'rgb(17, 173, 0)';
+    cancelButton.innerHTML = '&#x2717;';
+    cancelButton.style.backgroundColor = 'rgb(169, 0, 0)';
+
+    // TODO: CONTINUE ON EDITING STEPS
+    saveButton.addEventListener('click', () => {
+        if (newInput.value === '') {
+            newInput.style.backgroundColor = 'rgba(163, 100, 100)';
+            newInput.addEventListener('click', () => newInput.style.backgroundColor = 'white');
+        } else {
+            projectSteps[Project.selected.id] = projectSteps[Project.selected.id].filter( (step) => step !== liNode);
+            saveInput(liNode, newInput.value);
+        }
+    });
+
+
 };
 
 function displaySteps() {
