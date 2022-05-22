@@ -1,6 +1,6 @@
 import { initializePage } from "./initializer";
 import { updateTimeRange } from "./time-range";
-import { initializeInput, Project } from "./project-factory";
+import { initializeInput, Project, checkOverdue } from "./project-factory";
 import { addStep } from "./step-factory";
 
 /*
@@ -31,3 +31,5 @@ addStepButton.setAttribute('disabled', true);
 // TODO: Retrieve data using localstorage
 
 // TODO: Check for overdue projects
+
+checkOverdue();
