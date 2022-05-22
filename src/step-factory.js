@@ -107,7 +107,6 @@ function saveInput(liNode, taskName) {
             task.style.textDecoration = 'line-through';
             liNode.style.backgroundColor = 'rgba(174, 243, 174, 0.7)';
         }
-        // TODO: Initiate Project completion check
         checkComplete();
     });
 
@@ -129,9 +128,15 @@ function saveInput(liNode, taskName) {
 function checkComplete() {
     const steps = document.querySelectorAll('#steps-list li');
     if (Array.from(steps).length > 0 && Array.from(steps).every( (step) => step.style.backgroundColor === 'rgba(174, 243, 174, 0.7)')) {
-        // Project.selected.style.backgroundColor = 'rgba(174, 243, 174, 0.7)';
-        // FIXME: project bgc not changing when all steps complete
-        console.log(Project.selected.element)
+        const project = document.getElementById(Project.selected.element.id);
+        project.classList.remove('selected');
+        project.classList.add('complete');
+        project.style.backgroundColor = 'rgba(174, 243, 174, 0.7)';
+    } else if (Project.selected) {
+        const project = document.getElementById(Project.selected.element.id);
+        project.classList.remove('complete');
+        project.classList.add('selected');
+        project.style.backgroundColor = 'rgb(48, 93, 255)';
     }
 }
 

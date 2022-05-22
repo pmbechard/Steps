@@ -5,7 +5,6 @@ import { addStep } from "./step-factory";
 
 /*
 TODO:
-    - change project bgc when all steps completed in a project
     - change project bcg when project overdue
     - add ability to save information using localstorage
 */

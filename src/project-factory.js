@@ -204,10 +204,14 @@ class Project {
         Project.allProjects.forEach( (project) => {
             if (project === this) {
                 this.element.style.backgroundColor = 'rgb(48, 93, 255)';
+                this.element.classList.add('selected');
                 Project.selected = this;
                 displaySteps();
+            } else if (project.element.classList.contains('complete')) {
+                project.element.style.backgroundColor = 'rgba(174, 243, 174, 0.7)';
             } else {
                 project.element.style.backgroundColor = '#444';
+                this.element.classList.remove('selected');
             }
             const addStepButton = document.getElementById('add-step');
             addStepButton.classList.remove('disabled');

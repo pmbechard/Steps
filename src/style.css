@@ -134,8 +134,13 @@ button.disabled:hover,
     transform: none;
 }
 
-.selected {
+.projects-area > #projects-list li.selected,
+.steps-area > #steps-list li.selected {
     background-color: rgb(48, 93, 255);
+}
+
+.complete {
+    background-color: rgba(174, 243, 174, 0.7);
 }
 
 .project-input,
