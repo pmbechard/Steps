@@ -10,6 +10,15 @@ function initializePage() {
     header.insertBefore(logoImg, header.firstChild);
     logoImg.style.width = '85px';
 
+    if (localStorage.length > 0) {
+        const startPrompt = document.getElementById('start-prompt');
+        const addProjectButton = document.getElementById('add-project');
+        startPrompt.style.visibility = 'hidden';
+        addProjectButton.classList.remove('pulse');
+        // FIXME: check for empty steps list - add prompt and pulse if empty
+    }
+
+
     const projectsList = document.getElementById('projects-list');
     projectsList.addEventListener('click', () => {
         const projects = document.querySelectorAll('#projects-list li');
@@ -18,7 +27,8 @@ function initializePage() {
         const stepPrompt = document.getElementById('step-prompt');
         const addProjectButton = document.getElementById('add-project');
         const addStepButton = document.getElementById('add-step');
-        if (Array.from(projects).length > 0) {
+        
+        if (localStorage.length > 0 || Array.from(projects).length > 0) {
             startPrompt.style.visibility = 'hidden';
             addProjectButton.classList.remove('pulse');
             if (Array.from(steps).length === 0) {

@@ -1,12 +1,11 @@
 import { initializePage } from "./initializer";
 import { updateTimeRange } from "./time-range";
 import { initializeInput, Project, checkOverdue } from "./project-factory";
-import { addStep } from "./step-factory";
+import { addStep, displaySteps, projectSteps } from "./step-factory";
 
 /*
 TODO:
     - change project bcg when project overdue
-    - add ability to save information using localstorage
 */
 
 // Initialize static and dynamic page elements
@@ -29,9 +28,24 @@ addStepButton.classList.add('disabled');
 addStepButton.setAttribute('disabled', true);
 
 // TODO: Retrieve data using localstorage
+// FIXME: only initialize prompt if no local storage
 (function(){
     if (localStorage.length > 0) {
-        Array.from(localStorage).forEach( (item) => console.log(item) );
+        let counter = 0;
+        Array.from(localStorage).forEach( (item) => {
+            if (item) {
+                item = item.split(',');
+                const project = new Project(item[0], item[1]);
+                for (let i = 2; i < item.length; i++) {
+                    addStep(item[i].slice(3));
+                    // FIXME: ...
+                    // const spaceIndex = item[i].indexOf(' ');
+                    // addStep(item[i].slice(spaceIndex));
+                }
+            }
+        });
+        
+        
     }
 })();
 

@@ -6,7 +6,7 @@ import { Project } from "./project-factory";
 
 const projectSteps = {};
 
-function addStep() {
+function addStep(name='') {
     if (!Project.selected) {
         return;
     }
@@ -22,7 +22,6 @@ function addStep() {
     const saveButton = document.createElement('button');
     const cancelButton = document.createElement('button');
 
-
     stepList.insertBefore(newStep, stepList.lastElementChild);
     newStep.appendChild(inputsDiv);
     inputsDiv.appendChild(inputField);
@@ -34,6 +33,7 @@ function addStep() {
     inputField.setAttribute('placeholder', 'Task name');
     inputField.setAttribute('minlength', '1');
     inputField.setAttribute('maxlength', '20');
+    inputField.value = name;
     saveButton.innerHTML = '&#x2714;';
     saveButton.style.backgroundColor = 'rgb(17, 173, 0)';
     cancelButton.innerHTML = '&#x2717;';
@@ -54,6 +54,10 @@ function addStep() {
             saveInput(newStep, inputField.value);
         }
     });
+
+    if (name) {
+        saveButton.click();
+    }
 
     cancelButton.addEventListener('click', () => {
         newStep.remove();
@@ -144,7 +148,10 @@ function checkComplete() {
 }
 
 function editInput(liNode) {
-    const currentName = liNode.firstElementChild.textContent.split(' ')[1];
+    let currentName = liNode.firstElementChild.textContent.split(' ');
+    currentName = currentName.splice(1);
+    currentName = currentName.toString();
+    currentName = currentName.replace(',', ' ');
     liNode.firstElementChild.remove();
     liNode.lastElementChild.remove();
     const newInput = document.createElement('input');
@@ -194,11 +201,15 @@ function displaySteps() {
         let counter = 1;
         projectSteps[Project.selected.id].forEach( (project) => {
             stepList.insertBefore(project, stepList.lastElementChild);
-            project.firstElementChild.textContent = `${counter++}. ` + project.firstElementChild.textContent.split(' ')[1];
+            let currentName = project.firstElementChild.textContent.split(' ');
+            currentName = currentName.splice(1);
+            currentName = currentName.toString();
+            currentName = currentName.replace(',', ' ');
+            project.firstElementChild.textContent = `${counter++}. ` + currentName;
         });
         localStorage.setItem(Project.selected.id, [Project.selected.name,  Project.selected.dueDate, projectSteps[Project.selected.id].map( (step) => step.firstElementChild.textContent)]);
     }
     checkComplete();
 }
 
-export { addStep, displaySteps };
+export { addStep, displaySteps, projectSteps };

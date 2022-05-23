@@ -128,7 +128,6 @@ function checkOverdue() {
     // TODO: complete after localstorage implementation
     const projects = document.querySelectorAll('#projects-list li');
     projects.forEach( (project) => {
-        console.log(project.firstElementChild.lastElementChild.textContent);
         let today = new Date();
         let date = new Date(`${today.getFullYear()}-${parseInt(today.getMonth())+1}-${today.getDate()}`);
     });
