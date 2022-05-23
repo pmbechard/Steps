@@ -29,6 +29,11 @@ addStepButton.classList.add('disabled');
 addStepButton.setAttribute('disabled', true);
 
 // TODO: Retrieve data using localstorage
+(function(){
+    if (localStorage.length > 0) {
+        Array.from(localStorage).forEach( (item) => console.log(item) );
+    }
+})();
 
 // TODO: Check for overdue projects
 

@@ -63,8 +63,10 @@ function addStep() {
 function saveInput(liNode, taskName) {
     if (projectSteps[Project.selected.id]) {
         projectSteps[Project.selected.id].push(liNode);
+        localStorage.setItem(Project.selected.id, [Project.selected.name,  Project.selected.dueDate, projectSteps[Project.selected.id].map( (step) => step.firstElementChild.textContent)]);
     } else {
-        projectSteps[Project.selected.id] = [liNode]; 
+        projectSteps[Project.selected.id] = [liNode];
+        localStorage.setItem(Project.selected.id, [Project.selected.name,  Project.selected.dueDate, projectSteps[Project.selected.id].map( (step) => step.firstElementChild.textContent)]);
     }
     if (liNode.firstElementChild.firstElementChild) {
         liNode.firstElementChild.firstElementChild.remove();
@@ -115,6 +117,7 @@ function saveInput(liNode, taskName) {
     deleteButton.addEventListener('click', () => {
         liNode.remove();
         projectSteps[Project.selected.id] = projectSteps[Project.selected.id].filter( (item) => item !== liNode);
+        localStorage.setItem(Project.selected.id, [Project.selected.name,  Project.selected.dueDate, projectSteps[Project.selected.id].map( (step) => step.firstElementChild.textContent)]);
         displaySteps();
     });
 
@@ -175,6 +178,7 @@ function editInput(liNode) {
             newInput.addEventListener('click', () => newInput.style.backgroundColor = 'white');
         } else {
             projectSteps[Project.selected.id] = projectSteps[Project.selected.id].filter( (step) => step !== liNode);
+            localStorage.setItem(Project.selected.id, [Project.selected.name,  Project.selected.dueDate, projectSteps[Project.selected.id].map( (step) => step.firstElementChild.textContent)]);
             saveInput(liNode, newInput.value);
         }
     });
@@ -192,6 +196,7 @@ function displaySteps() {
             stepList.insertBefore(project, stepList.lastElementChild);
             project.firstElementChild.textContent = `${counter++}. ` + project.firstElementChild.textContent.split(' ')[1];
         });
+        localStorage.setItem(Project.selected.id, [Project.selected.name,  Project.selected.dueDate, projectSteps[Project.selected.id].map( (step) => step.firstElementChild.textContent)]);
     }
     checkComplete();
 }

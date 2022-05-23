@@ -103,6 +103,9 @@ function validateInput(projectInput, nameInput, dueDateInput, saveButton, cancel
             projectInput.remove();
             updateTimeRange();
             project.selectProject();
+
+            // TODO: localstorage structure
+            localStorage.setItem(project.id, [project.name, project.dueDate, []]);
         }
     });
     cancelButton.addEventListener('click', () => {
@@ -208,6 +211,7 @@ class Project {
         const stepPrompt = document.getElementById('step-prompt');
         stepPrompt.style.visibility = 'hidden';
         displaySteps();
+        localStorage.removeItem(this.id);
     }
 
     selectProject() {
